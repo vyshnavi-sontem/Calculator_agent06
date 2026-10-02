@@ -1,0 +1,53 @@
+# Agentic AI - State Tracking
+# Key Concept: State Dictionary
+
+def temperature_agent(temperature, goal, max_iters=10):
+
+    # State tracking
+    state = {
+        "done": False,
+        "steps": 0
+    }
+
+    while not state["done"] and state["steps"] < max_iters:
+
+        # 1. OBSERVE
+        print(f"\nStep {state['steps'] + 1}")
+        print("Observe: Temperature =", temperature)
+
+        # 2. DECIDE
+        if temperature == goal:
+            state["done"] = True
+            print("Goal reached!")
+
+        elif temperature > goal:
+            action = "decrease"
+            temperature -= 1
+            print("Decide: Decrease temperature")
+
+        else:
+            action = "increase"
+            temperature += 1
+            print("Decide: Increase temperature")
+
+        # Track steps
+        state["steps"] += 1
+
+        print("Act: Temperature =", temperature)
+        print("State:", state)
+
+    # Final result
+    if state["done"]:
+        return "success"
+    else:
+        return "failure"
+
+
+# Run the agent
+result = temperature_agent(
+    temperature=80,
+    goal=72,
+    max_iters=10
+)
+
+print("\nFinal Result:", result)
